@@ -22,6 +22,10 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {   //회원가입
       req.flash('joinError', '이미 가입된 닉네임입니다.');
       return res.redirect('/join');
     }
+    if(!password) {
+	    req.flash('joinError', '비밀번호를 입력하세요.');
+	    return res.redirect('/join');
+    }
     const hash = await bcrypt.hash(password, 12);      //비밀번호는 암호화해서 저장. bcrypt 모듈 사용. bcryp의 hash 메서드를 사용해 손쉽게 암호화. 
     await User.create({									//12는 반복횟수. 12 이상을 추천. 31까지 가능
       email,
