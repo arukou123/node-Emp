@@ -22,6 +22,14 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {   //회원가입
       req.flash('joinError', '이미 가입된 닉네임입니다.');
       return res.redirect('/join');
     }
+	 if(!email) {
+	    req.flash('joinError', '이메일을 입력하세요.');
+	    return res.redirect('/join');
+    }
+	  if(!nick) {
+	    req.flash('joinError', '닉네임을 입력하세요.');
+	    return res.redirect('/join');
+    }
     if(!password) {
 	    req.flash('joinError', '비밀번호를 입력하세요.');
 	    return res.redirect('/join');
